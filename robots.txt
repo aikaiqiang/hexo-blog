@@ -1,0 +1,15 @@
+User-agent: *
+Allow: /
+Allow: /archives/
+Allow: /categories/
+Allow: /tags/
+Allow: /about/
+
+Disallow: /vendors/
+Disallow: /js/
+Disallow: /css/
+Disallow: /fonts/
+Disallow: /fancybox/
+
+Sitemap: http://blog.kaywall.top/sitemap.xml
+Sitemap: http://blog.kaywall.top/baidu_sitemap.xml
