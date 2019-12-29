@@ -9,13 +9,14 @@ categories:
 ---
 >摘要：Harbor是一个用于存储和分发Docker镜像的企业级Registry服务器，通过添加一些企业必需的功能特性
 
-## 关于Harbor
-### Harbor简介
+# 关于Harbor
+
+## Harbor简介
 Harbor是一个用于存储和分发Docker镜像的企业级Registry服务器，通过添加一些企业必需的功能特性，例如安全、标识和管理等，扩展了开源Docker Distribution。作为一个企业级私有Registry服务器，Harbor提供了更好的性能和安全。提升用户使用Registry构建和运行环境传输镜像的效率。Harbor支持安装在多个Registry节点的镜像资源复制，镜像全部保存在私有Registry中， 确保数据和知识产权在公司内部网络中管控。另外，Harbor也提供了高级的安全特性，诸如用户管理，访问控制和活动审计等 ；
 
 <!-- more -->
 
-### 安装Harbor
+## 安装Harbor
 >安装环境：CentOS Linux release 7.2.1511 (Core )
 1. 安装Docker
 2. 安装Docker-Compose
@@ -23,24 +24,23 @@ Harbor是一个用于存储和分发Docker镜像的企业级Registry服务器，
     - pip安装
 3. 安装Harbor
 
-#### 在线安装
-- 下载文件：
+### 在线安装
+
+#### 下载文件
 ```bash
 wget -P /usr/local/src/     https://github.com/vmware/harbor/releases/download/v1.2.0/harbor-online-installer-v1.2.0.tgz
 ```
 
-- 解压文件：
+#### 解压文件
 ```bash
 tar zxf harbor-online-installer-v1.2.0.tgz  -C /usr/local/
 ```
 
-- 修改配置文件：
-```
+#### 修改配置文件
+```bash
 # 编辑文件 harbor.cfg
 cd /usr/local/harbor/
 vim harbor.cfg
-
-# 参数设置：
 # 域名设置
 hostname = reg.hancloud.cn
 # 邮箱设置
@@ -52,22 +52,18 @@ email_from = aikaiqiang <aikaiqiang@hancloud.cn>
 email_ssl = false
 # 禁止用户注册
 self_registration = off
-
 # 设置只有管理员可以创建项目
 project_creation_restriction = adminonly
 ```
 
-执行安装脚本：
-```
+#### 执行安装脚本
+```bash
 #执行命令：
 ./install.sh
 # 执行log打印：
 [Step 0]: checking installation environment ...
-
 Note: docker version: 1.13.1
-
-Note: docker-compose version: 1.22.0
-    
+Note: docker-compose version: 1.22.0   
 [Step 1]: preparing environment ...
 Generated and saved secret to file: /data/secretkey
 Generated configuration file: ./common/config/nginx/nginx.conf
@@ -79,10 +75,8 @@ Generated configuration file: ./common/config/jobservice/env
 Generated configuration file: ./common/config/jobservice/app.conf
 Generated configuration file: ./common/config/ui/app.conf
 Generated certificate, key file: ./common/config/ui/private_key.pem, cert file: ./common/config/registry/root.crt
-The configuration files are ready, please use docker-compose to start the service.
-       
-[Step 2]: checking existing instance of Harbor ...
-     
+The configuration files are ready, please use docker-compose to start the ser      
+[Step 2]: checking existing instance of Harbor ...   
 [Step 3]: starting Harbor ...
 Creating network "harbor_harbor" with the default driver
 Pulling log (vmware/harbor-log:v1.2.0)...
@@ -171,9 +165,7 @@ Creating harbor-db          ... done
 Creating harbor-ui          ... done
 Creating harbor-jobservice  ... done
 Creating nginx              ... done
-
 ✔ ----Harbor has been installed and started successfully.----
-
 Now you should be able to visit the admin portal at http://reg.hancloud.cn. 
 For more details, please visit https://github.com/vmware/harbor 
 ```
@@ -186,7 +178,7 @@ For more details, please visit https://github.com/vmware/harbor
 Harbor 管理是通过docker-compose来完成的，Harbor本身有多个服务进程，都放在docker容器之中运行，我们可以通过docker ps或者docker-compose  ps命令查看 :
 ![](https://raw.githubusercontent.com/aikaiqiang/aikq-blog-comments/master/notepic/harbor-docker-compose.png)
     
-Harbor的启动和停止 ：
+#### Harbor的启动和停止
 ```bash
 # 启动Harbor
 docker-compose start
@@ -202,39 +194,39 @@ docker-compose restart
 
 
 
-### 上传下载镜像
-- 指定仓库地址,docker配置可信仓库地址（'reg.hancloud.cn'本地做host解析，或者直接用IP+端口）
-```
+#### 上传下载镜像
+1. 指定仓库地址,docker配置可信仓库地址（'reg.hancloud.cn'本地做host解析，或者直接用IP+端口）
+```bash
+# 编辑 daemon.json
 vim /etc/docker/daemon.json
-
+# 书写内容，配置本地docker仓库地址
 { "insecure-registries":["reg.hancloud.cn"] }
 ```
-
 重启docker：`systemctl  restart docker` 
 
-- 创建Dockerfile
+2. 创建Dockerfile
 创建文件`vim Dockerfile `
 ```Dockerfile
 FROM centos:centos7.1.1503
 ENV TZ "Asia/Shanghai"
 ```
 
-- 创建镜像
-```
+3. 创建镜像
+```bash
 docker build -t reg.hanclound.cn/library/centos7.1:V0.0.1 .
 ```
 
-- 把镜像push到Harbor
-```
+4. 把镜像push到Harbor
+```bash
 # 登陆仓库
 docker login reg.hanclound.cn
 docker push reg.hanclound.cn/library/centos7.1:V0.0.1
 ```
 
-###  配置TLS证书
+#### 配置TLS证书
 - 修改配置文件harbor.cfg 
 编辑harbor.cfg 文件
-```
+```bash
 hostname = 域名
 ui_url_protocol = https
 ssl_cert = /etc/certs/ca.crt
@@ -249,7 +241,6 @@ openssl genrsa -out /etc/certs/ca.key 2048
 
 - 创建自签名证书crt文件
 注意：命令中`/CN=reg.hanclound.cn `字段中`reg.hanclound.cn `修改为自己配置的仓库域名； 
-
 ```bash
 openssl req -x509 -new -nodes -key /etc/certs/ca.key -subj "/CN=rgs.unixfbi.com" -days 5000 -out /etc/certs/ca.crt
 ```
@@ -259,11 +250,9 @@ openssl req -x509 -new -nodes -key /etc/certs/ca.key -subj "/CN=rgs.unixfbi.com"
 
 - 客户端配置
 客户端需要创建证书文件存放的位置，并且把服务端创建的证书拷贝到该目录下，然后重启客户端docker。我们这里创建目录为：`/etc/docker/certs.d/reg.hanclound.cn 
-
-把服务端crt证书文件拷贝到客户端，例如我这的客户端为：192.168.0.94; 
+把服务端crt证书文件拷贝到客户端，例如我这的客户端为：`192.168.0.94` 
 `# scp /etc/certs/ca.crt root@192.168.0.94:/etc/docker/certs.d/reg.hanclound.cn/`
-
 重启客户端docker ：`systemctl restart docker` 
 
-参考博客：
+### 参考博客
 [运维特工](https://www.cnblogs.com/pangguoping/p/7650014.html)

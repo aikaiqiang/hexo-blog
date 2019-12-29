@@ -105,7 +105,7 @@ public class SocketTextStreamWordCount {
 
 或者利用IDE，如图：
 ![](https://raw.githubusercontent.com/aikaiqiang/aikq-blog-comments/master/notepic/20190222172615.png)
-1：忽略单元测试
+备注：“1” 处按钮表示忽略单元测试
 package：执行打包命令，生成jar包，如图：
 ![](https://raw.githubusercontent.com/aikaiqiang/aikq-blog-comments/master/notepic/20190222175501.png)
 

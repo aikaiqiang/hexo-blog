@@ -37,34 +37,28 @@ b. SQL thread执行变更
 #################################################
 ## mysql serverId , v1.0.26+ will autoGen
 # canal.instance.mysql.slaveId=0
-
 # enable gtid use true/false
 canal.instance.gtidon=false
-
 # position info / 需要改成自己的数据库信息
 canal.instance.master.address=127.0.0.1:3306
 canal.instance.master.journal.name=
 canal.instance.master.position=
 canal.instance.master.timestamp=
 canal.instance.master.gtid=
-
 # rds oss binlog
 canal.instance.rds.accesskey=
 canal.instance.rds.secretkey=
 canal.instance.rds.instanceId=
-
 # table meta tsdb info
 canal.instance.tsdb.enable=true
 #canal.instance.tsdb.url=jdbc:mysql://127.0.0.1:3306/canal_tsdb
 #canal.instance.tsdb.dbUsername=canal
 #canal.instance.tsdb.dbPassword=canal
-
 #canal.instance.standby.address =
 #canal.instance.standby.journal.name =
 #canal.instance.standby.position =
 #canal.instance.standby.timestamp =
 #canal.instance.standby.gtid=
-
 # username/password, 需要改成自己的数据库信息
 canal.instance.dbUsername=canal
 canal.instance.dbPassword=canal
@@ -73,12 +67,10 @@ canal.instance.defaultDatabaseName =test
 # enable druid Decrypt database password
 canal.instance.enableDruid=false
 #canal.instance.pwdPublicKey=MFwwDQYJKoZIhvcNAQEBBQADSwAwSAJBALK4BUxdDltRRE5/zXpVEVPUgunvscYFtEip3pmLlhrWpacX7y7GCMo2/JM6LeHmiiNdH1FWgGCpUfircSwlWKUCAwEAAQ==
-
 # table regex
 canal.instance.filter.regex=.*\\..*
 # table black regex
 canal.instance.filter.black.regex=
-
 # mq config
 canal.mq.topic=example
 # dynamic topic route by table regex
