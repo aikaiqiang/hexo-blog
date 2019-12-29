@@ -11,5 +11,5 @@ Disallow: /css/
 Disallow: /fonts/
 Disallow: /fancybox/
 
-Sitemap: http://blog.kaywall.top/sitemap.xml
-Sitemap: http://blog.kaywall.top/baidu_sitemap.xml
+Sitemap: https://aikaiqiang.gitee.io/sitemap.xml
+Sitemap: https://aikaiqiang.gitee.io/baidusitemap.xml

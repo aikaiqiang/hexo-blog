@@ -13,7 +13,7 @@ timezone: 'Asia/Shanghai'
 
 # URL
 ## If your site is put in a subdirectory, set url as 'http://yoursite.com/child' and root as '/child/'
-url: http://blog.kaywall.top
+url: https://aikaiqiang.gitee.io/
 root: /
 permalink: :year/:month/:day/:title/
 # permalink: :title.html
@@ -46,7 +46,7 @@ post_asset_folder: false
 relative_link: false
 future: true
 highlight:
-  enable: true
+  enable: false
   line_number: true
   auto_detect: false
   tab_replace: ''
@@ -93,6 +93,7 @@ include:
   # Include 'source/css/_typing.css'.
   - "css/_typing.css"
   - 'custom.xml'
+  - 'robots.txt'
 exclude:
   # Exclude 'source/js/test.js'
   - "js/test.js"
@@ -122,6 +123,35 @@ sitemap:
 baidusitemap:
   path: baidusitemap.xml
 
+# npm i hexo-prism-plugin --save
+prism_plugin:
+  mode: 'preprocess'    # realtime/preprocess
+  theme: 'tomorrow'
+  line_number: false    # default false
+  custom_css:
+
+###  npm i hexo-permalink-pinyin --save
+permalink_pinyin:
+  enable: true
+  separator: '-' # default: '-'
+
+### npm i --save hexo-wordcount
+postInfo:
+  date: true
+  update: false
+  wordCount: false # set true.
+  totalCount: false # set true.
+  min2read: false # set true.
+  readCount: false # set true.
+
+### npm install hexo-filter-github-emojis --save
+githubEmojis:
+  enable: true
+  className: github-emoji
+  inject: true
+  styles:
+  customEmojis:
+
 # 订阅插件配置 npm install hexo-generator-feed --save
 feed:
   type:
@@ -140,14 +170,21 @@ feed:
 # atom will be generated using custom.xml
 # rss2 will be generated using the default template instead
 
+# 延迟加载图片...
+lazyload:
+  enable: true 
+  onlypost: false
+  loadingImg: # eg ./images/loading.gif
 
 ## Themes: https://hexo.io/themes/
-theme: yilia-plus
+theme: matery
 
 # Deployment
 ## Docs: https://hexo.io/docs/deployment.html
 deploy:
-  type: ''
+  type: git
+  repo: https://gitee.com/aikaiqiang/aikaiqiang.git
+  branch: master
 
 # 覆盖主题中 _config.yml 的配置信息
 # _config.yml
